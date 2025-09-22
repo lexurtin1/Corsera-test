@@ -1,0 +1,7 @@
+uploads/*
+exports/*
+logs/*
+!uploads/.gitkeep
+!exports/.gitkeep
+!logs/rail_stub.log
+!logs/rail_stub.log

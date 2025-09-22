@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="card">
+  <h2>Packet received by <strong>GS DAP (stub)</strong> — clean, pre-cleared flow.</h2>
+  <p>Order {{ order_id }} transmitted successfully.</p>
+  <p><strong>Packet hash:</strong> {{ packet_hash }}</p>
+  <p><a class="button secondary" href="{{ json_url }}" target="_blank" rel="noopener">View JSON packet</a></p>
+  <p><a href="{{ url_for('index') }}">Upload another document</a></p>
+</section>
+{% endblock %}
