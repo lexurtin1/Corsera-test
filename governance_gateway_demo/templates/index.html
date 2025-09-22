@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="card">
+  <h2>Upload Investor Documentation</h2>
+  <p>Submit a single PDF to simulate onboarding. The demo will orchestrate KYC, AML, and governance checks automatically.</p>
+  <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data" class="upload-form">
+    <label class="file-input">
+      <span>Select PDF</span>
+      <input type="file" name="document" accept="application/pdf" required>
+    </label>
+    <button type="submit" class="primary">Start Pre-Clearance</button>
+  </form>
+  <div class="helper-links">
+    <a href="{{ url_for('download_template') }}">Download onboarding CSV template</a>
+  </div>
+</section>
+{% endblock %}

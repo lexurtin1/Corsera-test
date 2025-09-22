@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="card progress-card" id="progress-card" data-order-id="{{ order['order_id'] }}" data-finalize-url="{{ url_for('finalize', order_id=order['order_id']) }}">
+  <h2 id="progress-headline">Pre-Clearance in progress…</h2>
+  <p class="order-subtitle">Order {{ order['order_id'] }} · {{ order['uploaded_filename'] }}</p>
+  <div class="progress-layout">
+    <div class="progress-ring" id="progress-ring">
+      <svg viewBox="0 0 260 260" class="ring-svg">
+        <circle class="ring-bg" cx="130" cy="130" r="110" />
+        <path class="segment segment-kyc" d="M130 20 A110 110 0 0 1 240 130" />
+        <path class="segment segment-aml" d="M240 130 A110 110 0 0 1 130 240" />
+        <path class="segment segment-ownership" d="M130 240 A110 110 0 0 1 20 130" />
+        <path class="segment segment-governance" d="M20 130 A110 110 0 0 1 130 20" />
+      </svg>
+      <div class="segment-icon icon-kyc">•</div>
+      <div class="segment-icon icon-aml">•</div>
+      <div class="segment-icon icon-ownership">•</div>
+      <div class="segment-icon icon-governance">•</div>
+    </div>
+    <div class="steps">
+      <ul>
+        <li data-segment="kyc">
+          <span class="step-title">KYC</span>
+          <span class="badge pending">Pending</span>
+        </li>
+        <li data-segment="aml">
+          <span class="step-title">AML / Sanctions</span>
+          <span class="badge pending">Pending</span>
+        </li>
+        <li data-segment="ownership">
+          <span class="step-title">Ownership &amp; PEP</span>
+          <span class="badge pending">Pending</span>
+        </li>
+        <li data-segment="governance">
+          <span class="step-title">Governance Workflow</span>
+          <span class="badge pending">Pending</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="microcopy">
+    <p>Validating documents…</p>
+    <p>Screening sanctions &amp; AML…</p>
+    <p>Resolving ownership &amp; PEP…</p>
+    <p>Evaluating governance policy…</p>
+  </div>
+  <div id="result-panel" class="result-panel hidden">
+    <h3>Compliance Packet Ready ✅</h3>
+    <div class="download-actions">
+      <a class="button secondary" id="download-json" href="#" target="_blank" rel="noopener">Download JSON</a>
+      <a class="button secondary" id="download-csv" href="#" target="_blank" rel="noopener">Download CSV</a>
+    </div>
+    <form method="post" action="{{ url_for('send_to_rail', order_id=order['order_id']) }}">
+      <button type="submit" class="button gold">Send to GS DAP</button>
+    </form>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/progress.js') }}" defer></script>
+{% endblock %}
